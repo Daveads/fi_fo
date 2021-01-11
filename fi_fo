@@ -1,0 +1,42 @@
+#! /bin/bash
+
+FO=folder
+FI=files
+MSG="What the fuck do you want to name your"
+
+
+QUES(){
+
+	if [ $1 == "file" ]; then
+
+		read -p "$MSG $FI  " FOLDER_NAME
+
+
+	elif [ $1 == "folder" ]; then
+		
+		read -p "$MSG $FO  " FOLDER_NAME
+
+	fi
+}
+
+
+read -p "FILE OR FOLDER " ANS_F
+
+
+
+if [ "$ANS_F" == "file" ]; then
+
+	QUES $ANS_F	
+	touch $FOLDER_NAME
+	echo "======================="
+    echo "$ANS_F created...!!!"
+	echo "======================="
+
+elif [ "$ANS_F" == "folder" ]; then
+
+	QUES $ANS_F
+	mkdir $FOLDER_NAME
+    echo "======================="
+	echo "$ANS_F created...!!!"
+	echo "======================="
+fi
