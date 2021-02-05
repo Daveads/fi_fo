@@ -1,42 +1,90 @@
-#! /bin/bash
+#!/bin/bash
+#
+# 
 
+#Variables
 FO=folder
 FI=files
 MSG="What the fuck do you want to name your"
 
 
+#Manupulated the QUES strings
 QUES(){
 
-	if [ $1 == "file" ]; then
+	if [[ "$1" == "-fi"  ||  "$1" == "-file" ||  "$1" == "File" || "$1" == "FILE" ]]; then
 
 		read -p "$MSG $FI  " FOLDER_NAME
 
 
-	elif [ $1 == "folder" ]; then
+	elif [[ "$1" == "-fo" || "$1" == "-folder" || "$1" == "-Folder" || "$1" == "-FOLDER" ]]; then
 		
 		read -p "$MSG $FO  " FOLDER_NAME
 
 	fi
+
 }
 
 
-read -p "FILE OR FOLDER " ANS_F
+
+Exec(){
+
+		if [[ "$1" == "-fi" || "$1" == "-file"  ||  "$1" == "-File" || "$1" == "-FILE" ]]; then
+				QUES $1	
+				touch $FOLDER_NAME
+				echo "======================="
+				echo "$ANS_F created...!!!"
+				echo "======================="
+
+		elif [[ "$1" == "-fo" || "$1" == "-folder" || "$1" == "-Folder" || "$1" == "-FOLDER" ]]; then
+				QUES $1
+				mkdir $FOLDER_NAME
+				echo "======================="
+				echo "$ANS_F created...!!!"
+				echo "======================="
+
+
+		fi
+
+}
 
 
 
-if [ "$ANS_F" == "file" ]; then
 
-	QUES $ANS_F	
-	touch $FOLDER_NAME
-	echo "======================="
-    echo "$ANS_F created...!!!"
-	echo "======================="
+Help(){
 
-elif [ "$ANS_F" == "folder" ]; then
+printf "
+Usage: fi_fo [options] ....
 
-	QUES $ANS_F
-	mkdir $FOLDER_NAME
-    echo "======================="
-	echo "$ANS_F created...!!!"
-	echo "======================="
-fi
+Options:
+		-h       --help     	Print this message and exit
+		-fi      --file     	Create file
+		-fo      --folder   	Create folder
+"
+}
+
+
+case $1 in 
+
+   -h|-H|-help|-Help|HELP)
+		Help
+		;;
+
+
+   -fi|-file|File|FILE)
+		Exec $1
+		;;
+
+   -fo|-folder|-Folder|-FOLDER)
+		Exec $1
+		;;
+		
+
+   *)
+
+printf "
+fi_fo: invalid option -- '$1'
+  Use: fi_fo -h 
+		"
+		;;
+
+esac

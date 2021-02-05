@@ -1,0 +1,5 @@
+#! /bin/bash
+
+RUN=$( ./hello )
+
+echo "$RUN output from start "
